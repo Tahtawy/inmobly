@@ -1,1 +1,69 @@
-<p>details works!</p>
+<app-header></app-header>
+
+<section class="thumbnail">
+  <img [src]="videoDetails.snippet.thumbnails.high.url" alt="video thumbnail" />
+</section>
+
+<section class="title-bar">
+  <div
+    class="container-fluid d-flex justify-content-between align-items-center"
+  >
+    <p class="m-0">{{ videoDetails.snippet.title }}</p>
+    <button class="btn title-bar__favorite" (click)="addToFavorite()">
+      Add to favorite
+    </button>
+  </div>
+</section>
+
+<section class="statistics">
+  <div
+    class="container-fluid d-flex justify-content-between align-items-center"
+  >
+    <div class="rate d-flex justify-content-between align-items-center">
+      <label for="rate" class="font-weight-bold mb-0">
+        Rate Now
+      </label>
+      <star-rating
+        [value]="videoRate"
+        totalstars="5"
+        checkedcolor="red"
+        uncheckedcolor="rgba(255, 0, 0, 0.2)"
+        size="24px"
+        readonly="false"
+        (rate)="onRate($event)"
+      ></star-rating>
+    </div>
+
+    <div class="duration">
+      <label for="duration" class="font-weight-bold mb-0">Duration</label>
+      <span>{{ videoContentDetails.duration | durationFormat }}</span>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="views">
+        <label for="views" class="font-weight-bold mb-0">
+          <i class="fas fa-eye"></i>
+        </label>
+        <span>{{ videoStatistics.viewCount }}</span>
+      </div>
+      <div class="likes">
+        <label for="likes" class="font-weight-bold mb-0">
+          <i class="fas fa-thumbs-up"></i>
+        </label>
+        <span>{{ videoStatistics.likeCount }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="details">
+  <article class="container-fluid">
+    <p class="details__publishedAt">
+      Published on:
+      {{ videoDetails.snippet.publishedAt | date: "MMM dd, yyyy" }}
+    </p>
+    <p>
+      {{ videoDetails.snippet.description }}
+    </p>
+  </article>
+</section>

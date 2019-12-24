@@ -82,12 +82,20 @@
     <tbody>
       <tr *ngFor="let video of videos | filterVideos: searchText">
         <th scope="row">
-          <img [src]="video.snippet.thumbnails.default.url" alt="" />
+          <img
+            [src]="video.snippet.thumbnails.default.url"
+            alt="video thumbnails"
+          />
         </th>
         <td>{{ video.snippet.title }}</td>
         <td>{{ video.snippet.publishedAt | date: "dd/MM/yyyy" }}</td>
         <td scope="row">
-          <button class="btn videos__details">details</button>
+          <a
+            class="btn videos__details"
+            [routerLink]="['/details', video.id.videoId]"
+          >
+            details
+          </a>
         </td>
       </tr>
     </tbody>

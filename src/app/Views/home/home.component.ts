@@ -9,6 +9,7 @@ import { YoutubeService } from "../../Services/youtube.service";
 export class HomeComponent implements OnInit {
   constructor(private youtubeService: YoutubeService) {}
 
+  // Component Data Model.
   videos: Array<any> = [];
   unSortedVideos: Array<any> = [];
   nextPageToken: String = "";
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
   sortType: String = ""; // '' means not sorted, 'asc' means ascending, 'des' means descending
   sortColumn: String = "";
 
+  // Component Methods.
   getChannelVideos(pageToken = "") {
     this.youtubeService.getChannelVideos(pageToken).subscribe(data => {
       this.videos = data["items"];
@@ -27,13 +29,11 @@ export class HomeComponent implements OnInit {
       this.prevPageToken = data["prevPageToken"] || null;
     });
   }
-
   searchVideos(searchText: String) {
     this.videos.filter(video => {
       return video.snippet.title.includes(searchText);
     });
   }
-
   sortTitle() {
     if (this.sortColumn === "date" && this.sortType !== "") this.sortType = "";
     this.sortColumn = "title";
@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
       this.sortType = "";
     }
   }
-
   sortPublishDate() {
     if (this.sortColumn === "title" && this.sortType !== "") this.sortType = "";
     this.sortColumn = "date";
@@ -82,6 +81,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Component Life Cycle Hooks.
   ngOnInit() {
     this.getChannelVideos(); // Initially get first page
   }

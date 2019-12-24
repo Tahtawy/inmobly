@@ -14,7 +14,25 @@ export class YoutubeService {
 
   public getChannelVideos(pageToken = "") {
     return this.httpClient.get(
-      `${this.BASE_URL}/search?part=snippet&channelId=${this.CHANNEL_ID}&pageToken=${pageToken}&key=${this.API_KEY}`
+      `${this.BASE_URL}/search?part=snippet&type=video&channelId=${this.CHANNEL_ID}&pageToken=${pageToken}&key=${this.API_KEY}`
+    );
+  }
+
+  public getVideoDetails(videoId) {
+    return this.httpClient.get(
+      `${this.BASE_URL}/videos?part=snippet&id=${videoId}&key=${this.API_KEY}`
+    );
+  }
+
+  public getVideoContentDetails(videoId) {
+    return this.httpClient.get(
+      `${this.BASE_URL}/videos?part=contentDetails&id=${videoId}&key=${this.API_KEY}`
+    );
+  }
+
+  public getVideoStatistics(videoId) {
+    return this.httpClient.get(
+      `${this.BASE_URL}/videos?part=statistics&id=${videoId}&key=${this.API_KEY}`
     );
   }
 }

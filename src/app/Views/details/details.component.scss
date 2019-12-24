@@ -1,0 +1,40 @@
+.thumbnail {
+  height: 500px;
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.title-bar {
+  border-bottom: 1px solid #ccc;
+  padding: 15px 0;
+  &__favorite {
+    background-color: red;
+    color: #fff;
+  }
+}
+
+.views {
+  margin-right: 15px;
+}
+.rate,
+.duration {
+  label {
+    margin-right: 15px;
+  }
+}
+.statistics {
+  border-bottom: 1px solid #ccc;
+  i {
+    margin-right: 5px;
+  }
+}
+
+.details {
+  padding: 20px 0;
+  &__publishedAt {
+    color: red;
+  }
+}
