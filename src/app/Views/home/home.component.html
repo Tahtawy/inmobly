@@ -1,0 +1,112 @@
+<app-header>
+  <div class="search-box">
+    <input
+      class="border-0 text-center fas"
+      type="text"
+      placeholder="&#xf002; Search by video title"
+      name="searchVideos"
+      id="searchVideos"
+      [(ngModel)]="searchText"
+    />
+  </div>
+</app-header>
+
+<section class="videos">
+  <table class="videos__table table table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="videos__title" (click)="sortTitle()">
+          <div class="d-flex align-items-center">
+            <!-- Not Sorted. -->
+            <i
+              *ngIf="sortType === '' || sortColumn != 'title'"
+              class="fas fa-sort"
+            ></i>
+
+            <!-- Ascending Sorted. -->
+            <span
+              *ngIf="sortType === 'asc' && sortColumn === 'title'"
+              class="videos__sortDown d-flex flex-column"
+            >
+              <i class="fas fa-sort-up"></i>
+              <i class="fas fa-sort-down"></i>
+            </span>
+
+            <!-- Descending Sorted. -->
+            <span
+              *ngIf="sortType === 'des' && sortColumn === 'title'"
+              class="videos__sortUp d-flex flex-column"
+            >
+              <i class="fas fa-sort-up"></i>
+              <i class="fas fa-sort-down"></i>
+            </span>
+
+            <!-- Column Text -->
+            <span>Title</span>
+          </div>
+        </th>
+        <th class="videos__date" (click)="sortPublishDate()">
+          <div class="d-flex align-items-center">
+            <!-- Not Sorted. -->
+            <i
+              *ngIf="sortType === '' || sortColumn != 'date'"
+              class="fas fa-sort"
+            ></i>
+
+            <!-- Ascending Sorted. -->
+            <span
+              *ngIf="sortType === 'asc' && sortColumn === 'date'"
+              class="videos__sortDown d-flex flex-column"
+            >
+              <i class="fas fa-sort-up"></i>
+              <i class="fas fa-sort-down"></i>
+            </span>
+
+            <!-- Descending Sorted. -->
+            <span
+              *ngIf="sortType === 'des' && sortColumn === 'date'"
+              class="videos__sortUp d-flex flex-column"
+            >
+              <i class="fas fa-sort-up"></i>
+              <i class="fas fa-sort-down"></i>
+            </span>
+
+            <!-- Column Text -->
+            <span>Publish Date</span>
+          </div>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let video of videos | filterVideos: searchText">
+        <th scope="row">
+          <img [src]="video.snippet.thumbnails.default.url" alt="" />
+        </th>
+        <td>{{ video.snippet.title }}</td>
+        <td>{{ video.snippet.publishedAt | date: "dd/MM/yyyy" }}</td>
+        <td scope="row">
+          <button class="btn videos__details">details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section class="videos__paginator d-flex justify-content-end">
+    <button
+      class="prev border-0 py-0"
+      [disabled]="!prevPageToken"
+      (click)="getChannelVideos(prevPageToken)"
+    >
+      <i class="fas fa-caret-left"></i>
+    </button>
+    <button
+      class="next border-0 py-0"
+      [disabled]="!nextPageToken"
+      (click)="getChannelVideos(nextPageToken)"
+    >
+      <i class="fas fa-caret-right"></i>
+    </button>
+  </section>
+</section>
